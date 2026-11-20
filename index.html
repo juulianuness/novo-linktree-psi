@@ -77,6 +77,18 @@ p{color:var(--gs)}
 .cad .btn{margin-top:1rem}
 @media(min-width:900px){.cad{grid-template-columns:1.4fr 1fr;gap:2.5rem}.mold-in.g{padding:2rem 2.2rem}.cad .lado{display:grid;gap:1rem}}
 
+/* outros lançamentos */
+.lanc-cab{margin-bottom:.4rem}
+.lanc{flex:0 0 min(84%,320px);scroll-snap-align:start}
+.lanc .mold-in{display:flex;flex-direction:column;padding:1.3rem 1.2rem}
+.lanc .selo{align-self:flex-start}
+.lanc h3{font-size:1.15rem;margin-bottom:.5rem}
+.lanc p{font-size:.9rem}
+.lanc .itens{grid-template-columns:1fr;gap:.35rem;margin-top:.9rem;font-size:.84rem}
+.lanc .btn{margin-top:auto}
+.lanc .itens{margin-bottom:1.1rem}
+@media(min-width:900px){.faixa.f4{grid-template-columns:repeat(4,1fr)}.lanc{flex:none}}
+
 /* avaliações */
 .aval-cab{margin-bottom:.4rem}
 .faixa{display:flex;gap:.9rem;overflow-x:auto;scroll-snap-type:x mandatory;padding:.3rem .2rem 1rem;scrollbar-width:none}
@@ -134,6 +146,44 @@ footer .rs a:hover{background:var(--og);color:var(--g)}
   </div>
 </div></div></section>
 
+<!-- OUTROS LANÇAMENTOS -->
+<section class="w rv" id="lancamentos">
+  <div class="lanc-cab"><h2>Outros lançamentos</h2>
+  <p>Materiais criados por uma psicóloga para você cuidar de si, no seu ritmo.</p></div>
+  <div class="faixa f4" id="faixa2" tabindex="0" aria-label="Outros lançamentos">
+
+    <article class="lanc"><div class="mold"><div class="mold-in">
+      <h3>Caderno Terapêutico para Mulheres Exaustas e Sobrecarregadas</h3>
+      <p>Estratégias para reequilibrar a carga emocional, redefinir limites e recuperar a harmonia quando a sobrecarga pesa na sua rotina e nos seus relacionamentos.</p>
+      <ul class="itens"><li>Reflexões e exercícios guiados</li><li>Acesso imediato</li><li>Foco em limites e equilíbrio</li></ul>
+      <a class="btn btn-esc" href="https://chk.eduzz.com/80177RZ607" target="_blank" rel="noopener"><i class="fa-solid fa-book-open"></i><span>Adquirir</span></a>
+    </div></div></article>
+
+<article class="lanc"><div class="mold"><div class="mold-in">
+      <h3>Desafio de 7 Dias para Fortalecer sua Autoestima</h3>
+      <p>Uma semana de práticas guiadas, de mulher para mulher, para você se reconectar com seu valor e deixar de se sentir inadequada.</p>
+      <ul class="itens"><li>7 dias de desafios</li><li>Acesso imediato</li><li>Práticas guiadas de autoestima</li></ul>
+      <a class="btn btn-esc" href="https://chk.eduzz.com/Q9N22ENZ01" target="_blank" rel="noopener"><i class="fa-solid fa-book-open"></i><span>Adquirir</span></a>
+    </div></div></article>
+
+<article class="lanc"><div class="mold"><div class="mold-in">
+      <h3>Caderno de Afirmações Positivas</h3>
+      <p>Um caderno para praticar a autossugestão consciente e usar a repetição de pensamentos positivos como apoio à regulação das suas emoções.</p>
+      <ul class="itens"><li>Afirmações para o dia a dia</li><li>Acesso imediato</li><li>Foco em pensamentos positivos</li></ul>
+      <a class="btn btn-esc" href="https://chk.eduzz.com/Q9N22E7101" target="_blank" rel="noopener"><i class="fa-solid fa-book-open"></i><span>Adquirir</span></a>
+    </div></div></article>
+
+<article class="lanc"><div class="mold"><div class="mold-in">
+      <h3>Diário da Gratidão</h3>
+      <p>Registre e aprofunde a prática da gratidão, com base na Psicologia Positiva, e perceba como ela transforma seu humor e a forma como você se vê.</p>
+      <ul class="itens"><li>Registro diário guiado</li><li>Acesso imediato</li><li>Base na Psicologia Positiva</li></ul>
+      <a class="btn btn-esc" href="https://chk.eduzz.com/G96RR5XQW1" target="_blank" rel="noopener"><i class="fa-solid fa-book-open"></i><span>Adquirir</span></a>
+    </div></div></article>
+
+  </div>
+  <div class="setas"><button id="ant2" type="button" aria-label="Lançamento anterior"><i class="fa-solid fa-chevron-left"></i></button><button id="prox2" type="button" aria-label="Próximo lançamento"><i class="fa-solid fa-chevron-right"></i></button></div>
+</section>
+
 <section class="w rv" id="avaliacoes">
   <div class="aval-cab"><h2>O que dizem os pacientes</h2>
   <p>Avaliações de terapia online feitas na Doctoralia.</p></div>
@@ -171,10 +221,16 @@ document.getElementById("apres").href=CONFIG.apresentacao;
 document.getElementById("grupo").href=CONFIG.grupo;
 var obs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");obs.unobserve(e.target)}})},{threshold:.1});
 document.querySelectorAll(".rv").forEach(function(el){obs.observe(el)});
-var f=document.getElementById("faixa");
-function passo(){return f.querySelector(".aval").offsetWidth+14}
-document.getElementById("prox").onclick=function(){f.scrollBy({left:passo(),behavior:"smooth"})};
-document.getElementById("ant").onclick=function(){f.scrollBy({left:-passo(),behavior:"smooth"})};
-f.addEventListener("keydown",function(e){if(e.key==="ArrowRight")f.scrollBy({left:passo(),behavior:"smooth"});if(e.key==="ArrowLeft")f.scrollBy({left:-passo(),behavior:"smooth"})});
+
+/* carrosséis (avaliações e lançamentos) */
+function carrossel(faixaId,antId,proxId,itemSel){
+  var f=document.getElementById(faixaId);
+  function passo(){return f.querySelector(itemSel).offsetWidth+14}
+  document.getElementById(proxId).onclick=function(){f.scrollBy({left:passo(),behavior:"smooth"})};
+  document.getElementById(antId).onclick=function(){f.scrollBy({left:-passo(),behavior:"smooth"})};
+  f.addEventListener("keydown",function(e){if(e.key==="ArrowRight")f.scrollBy({left:passo(),behavior:"smooth"});if(e.key==="ArrowLeft")f.scrollBy({left:-passo(),behavior:"smooth"})});
+}
+carrossel("faixa","ant","prox",".aval");
+carrossel("faixa2","ant2","prox2",".lanc");
 </script>
 </body></html>
